@@ -9,9 +9,8 @@ def remove_punctuation(text):
     return punctuationfree
 # storing the puntuation free text
 
-data['clean_punc']= data['text'].apply(lambda x:remove_punctuation(x))
 
-data['lower']= data['clean_punc'].apply(lambda x: x.lower())
+
 
 # defining function for tokenization
 
@@ -22,9 +21,8 @@ def tokenization(text):
     tokens = re.split('W+',text)
     return tokens
 
-#applying function to the column
 
-data['token']= data['lower'].apply(lambda x: tokenization(x))
+
 
 #importing nlp library
 import nltk
@@ -34,8 +32,8 @@ def remove_stopwords(text):
     output= [i for i in text if i not in stopwords]
     return output
 
-#applying the function
-data['stopwords_free']= data['token'].apply(lambda x:remove_stopwords(x))
+
+
 
 from nltk.stem import WordNetLemmatizer
 #defining the object for Lemmatization
@@ -45,4 +43,11 @@ wordnet_lemmatizer = WordNetLemmatizer()
 def lemmatizer(text):
     lemm_text = [wordnet_lemmatizer.lemmatize(word) for word in text]
     return lemm_text
-data['lemmatized']=data['stopwords_free'].apply(lambda x:lemmatizer(x))
+
+def proprocessing(data):
+    data= data.apply(lambda x:remove_punctuation(x))
+    data= data.apply(lambda x: x.lower())
+    data= data.apply(lambda x: tokenization(x))
+    data= data.apply(lambda x:remove_stopwords(x))
+    data= data.apply(lambda x:lemmatizer(x))
+    return data
