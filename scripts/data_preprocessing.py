@@ -36,7 +36,7 @@ def lemmatizer(text):
     return lemm_text
 
 # data should be the text column from the dataset
-def proprocessing(data):
+def preprocessing(data):
     data= data.apply(lambda x:remove_punctuation(x))
     data= data.apply(lambda x: x.lower())
     data= data.apply(lambda x: tokenization(x))
