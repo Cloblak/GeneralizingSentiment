@@ -1,23 +1,24 @@
 import string
-string.punctuation
+import re
+import nltk
+from nltk.stem import WordNetLemmatizer
 
 # defining the function to remove punctuation
 
 def remove_punctuation(text):
     punctuationfree="".join([i for i in text if i not in string.punctuation])
     return punctuationfree
-# storing the puntuation free text
+
 
 # defining function for tokenization
 
-import re
+
 
 def tokenization(text):
     tokens = re.split('W+',text)
     return tokens
 
-#importing nlp library
-import nltk
+
 nltk.download('omw-1.4')
 
 #Stop words present in the library
