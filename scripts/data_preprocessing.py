@@ -35,6 +35,7 @@ def lemmatizer(text):
     lemm_text = [wordnet_lemmatizer.lemmatize(word) for word in text]
     return lemm_text
 
+# data should be the text column from the dataset
 def proprocessing(data):
     data= data.apply(lambda x:remove_punctuation(x))
     data= data.apply(lambda x: x.lower())
