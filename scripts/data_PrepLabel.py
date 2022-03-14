@@ -9,6 +9,8 @@ if __name__ == "__main__":
     print("Building Labeled Data....")
     
     # Adding Twitter Data Prep
+    
+    os.chdir("..")
 
     twitter_columns = ['text', 'airline_sentiment']
 
