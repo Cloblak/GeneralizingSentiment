@@ -27,7 +27,6 @@ def remove_stopwords(text):
     output= [i for i in text if i not in stopwords]
     return output
 
-from nltk.stem import WordNetLemmatizer
 #defining the object for Lemmatization
 wordnet_lemmatizer = WordNetLemmatizer()
 
