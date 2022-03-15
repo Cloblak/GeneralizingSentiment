@@ -2,6 +2,7 @@ import string
 import re
 import nltk
 from nltk.stem import WordNetLemmatizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 # defining the function to remove punctuation
 
@@ -42,4 +43,6 @@ def preprocessing(data):
     data= data.apply(lambda x: tokenization(x))
     data= data.apply(lambda x:remove_stopwords(x))
     data= data.apply(lambda x:lemmatizer(x))
-    return data
+    tf = TfidfVectorizer(analyzer='word', ngram_range=(1, 3), min_df=0, stop_words='english')
+    tfidf_matrix = tf.fit_transform(data)
+    return data,tfidf_matrix
