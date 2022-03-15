@@ -156,8 +156,8 @@ def train_model(
     num_ftrs = net.pooler.dense.in_features
 
     # Replace final Linear layer with a new Linear with the same number of inputs
-    # since we have 3 classes
-    net.fc = nn.Linear(in_features=num_ftrs, out_features=3)
+    # since we have 2 classes
+    net.fc = nn.Linear(in_features=num_ftrs, out_features=2)
 
     # We will use Cross Entropy as the cost/loss function and Adam for the optimizer.
 
