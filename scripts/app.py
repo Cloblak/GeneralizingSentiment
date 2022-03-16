@@ -1,6 +1,5 @@
 import streamlit as st
-
-from scripts.clf import predict
+from clf import predict
 
 # streamlit run app.py
 st.set_option("deprecation.showfileUploaderEncoding", False)
