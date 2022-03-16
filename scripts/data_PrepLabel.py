@@ -17,34 +17,34 @@ if __name__ == "__main__":
     twitter_df = pd.read_csv('data/raw_unformated/Tweets.csv', header=0, usecols=twitter_columns)
     twitter_df.rename(columns={"airline_sentiment": "sentiment", "input": "text"}, inplace=True)
 
-    # Adding Rotten Tomato Data Prep
+    # Adding Amazon Movie and TV Data Prep
 
     """
     Citation:
-    Richard Socher, Alex Perelygin, Jean Wu, Jason Chuang, Christopher Manning, Andrew Ng and Christopher Potts
-    Conference on Empirical Methods in Natural Language Processing (EMNLP 2013)
+    Ups and downs: Modeling the visual evolution of fashion trends with one-class collaborative filtering
+    R. He, J. McAuley
+    WWW, 2016
+    pdf
 
-    General Information About the Data:
-    sentiment_labels.txt contains all phrase ids and the corresponding sentiment labels, separated by a vertical line.
-    Note that you can recover the 5 classes by mapping the positivity probability using the following cut-offs:
-    [0, 0.2], (0.2, 0.4], (0.4, 0.6], (0.6, 0.8], (0.8, 1.0]
-    for very negative, negative, neutral, positive, very positive, respectively.
-    Please note that phrase ids and sentence ids are not the same.
+    Image-based recommendations on styles and substitutes
+    J. McAuley, C. Targett, J. Shi, A. van den Hengel
+    SIGIR, 2015
+    pdf
     """
 
-    rot_df = pd.read_json('data/raw_unformated/reviews_Movies_and_TV_5.json.gz', lines=True, compression='gzip')
+    amz_df = pd.read_json('data/raw_unformated/reviews_Movies_and_TV_5.json.gz', lines=True, compression='gzip')
 
-    rot_df_final = pd.DataFrame()
-    rot_df_final["sentiment"] = rot_df["overall"]
-    rot_df_final["text"] = rot_df["reviewText"]
-    rot_df_final["sentiment"] = rot_df_final["sentiment"].replace(1, "negative")
-    rot_df_final["sentiment"] = rot_df_final["sentiment"].replace(3, "neutral")
-    rot_df_final["sentiment"] = rot_df_final["sentiment"].replace(5, "positive")
+    amz_df_final = pd.DataFrame()
+    amz_df_final["sentiment"] = amz_df["overall"]
+    amz_df_final["text"] = amz_df["reviewText"]
+    amz_df_final["sentiment"] = amz_df_final["sentiment"].replace(1, "negative")
+    amz_df_final["sentiment"] = amz_df_final["sentiment"].replace(3, "neutral")
+    amz_df_final["sentiment"] = amz_df_final["sentiment"].replace(5, "positive")
 
     label_list = ["negative", "neutral", "positive"]
 
     # keep only 1, 3, and 5 ratings
-    rot_df_final = rot_df_final[rot_df_final["sentiment"].isin(label_list)]
+    amz_df_final =amz_df_final[amz_df_final["sentiment"].isin(label_list)]
 
     # Adding HuggyFace
 
