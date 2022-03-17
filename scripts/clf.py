@@ -55,7 +55,7 @@ def read_vocab(path):
     return vocab
 
 def predict(text):
-    vocab.load("vocab_obj.pth")
+    vocab = vocab.load("vocab_obj.pth")
     vocab.set_default_index(vocab["<unk>"])
     vocab_size = len(vocab)
     print(vocab_size)
