@@ -15,43 +15,79 @@ from torch.utils.data import DataLoader,TensorDataset
 from torch.utils.data.dataset import random_split
 from torchtext.data.functional import to_map_style_dataset
 from torch import nn
-
+from sklearn.model_selection import train_test_split
 import warnings
 warnings.filterwarnings('ignore')
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+class TextClassificationModel(nn.Module):
+
+    def __init__(self, vocab_size, embed_dim, num_class):
+        super(TextClassificationModel, self).__init__()
+        # Embedding layer
+        self.embedding = nn.EmbeddingBag(vocab_size, embed_dim, mode="mean",sparse=True)
+        # Fully connected final layer to convert embeddings to output predictions
+        self.fc = nn.Linear(embed_dim, num_class)
+        self.init_weights()
+
+    def init_weights(self):
+        initrange = 0.5
+        self.embedding.weight.data.uniform_(-initrange, initrange)
+        self.fc.weight.data.uniform_(-initrange, initrange)
+        self.fc.bias.data.zero_()
+
+    def forward(self, text, offsets):
+        embedded = self.embedding(text, offsets)
+        return self.fc(embedded)
+
+
 def yield_tokens(data_iter,tokenizer):
     for _, text in data_iter:
         yield tokenizer(text)
 
-labeled_df = pd.read_csv('clean_text.csv')
-data_iter = [(label,text) for label,text in zip(labeled_df['sentiment_id'].to_list(),labeled_df['clean_text'].to_list())]
-# Build vocabulary from tokens of training set
-tokenizer = get_tokenizer('basic_english')
-vocab = build_vocab_from_iterator(yield_tokens(data_iter,tokenizer), specials=["<unk>"])
-vocab.set_default_index(vocab["<unk>"])
 
 
 def predict(text):
+    labeled_df = pd.read_parquet("full_raw_data.parquet.gzip")
+    labeled_df['sentiment'] = labeled_df['sentiment'].map({"neutral":1,"positive":2,"negative":0})
+    train_df ,test_df = train_test_split(labeled_df,test_size=0.2)
+    train_iter = [(label,text) for label,text in zip(train_df['sentiment'].to_list(),train_df['text'].to_list())]
+    
+    
+    # Build vocabulary from tokens of training set
+    tokenizer = get_tokenizer('basic_english')
+    vocab = build_vocab_from_iterator(yield_tokens(train_iter,tokenizer), specials=["<unk>"])
+    vocab.set_default_index(vocab["<unk>"])
+    vocab_size = len(vocab)
+    print(vocab_size)
+    embed_dim = 64
+    num_classes = 3
     # Model class must be defined somewhere
-    net = TextClassificationModel()
+    #net = TextClassificationModel(vocab_size, embed_dim, num_classes)
 
-    model = "model.pt"
+    model = "fullmodel1.pt"
     print("Loading:", model)
-    net.load_state_dict(
-        torch.load("models/" + model, map_location=torch.device("cpu"))
-    )
-
+    
+    net = torch.load(model)
+    
+    net = net.to(device)
     # https://pytorch.org/docs/stable/torchvision/models.html
 
 
     text_pipeline = lambda x: vocab(tokenizer(x))
-    processed_text = torch.tensor(text_pipeline(text), dtype=torch.int64)
+    processed_text = torch.tensor(text_pipeline(text), dtype=torch.int64).to(device)
+    
+    
+    
+    offset = torch.tensor([0]).to(device)
+    
     net.eval()
-    out = net(processed_text)
-
-    classes = ["0", "1", "2"]
+    
+    out = net.forward(processed_text,offset)
+        
+    
+    classes = ["neutral", "postive", "negative"]
 
     prob = torch.nn.functional.softmax(out, dim=1)[0] * 100
     print(prob)
