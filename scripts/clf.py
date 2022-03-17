@@ -55,7 +55,9 @@ def read_vocab(path):
     return vocab
 
 def predict(text):
-    vocab = vocab.load("vocab_obj.pth")
+    tokenizer = get_tokenizer('basic_english')
+    
+    vocab = torch.load("vocab_obj.pth")
     vocab.set_default_index(vocab["<unk>"])
     vocab_size = len(vocab)
     print(vocab_size)
