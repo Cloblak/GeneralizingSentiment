@@ -1,13 +1,14 @@
 import streamlit as st
+from model import TextClassificationModel
 from clf import predict
 
 # streamlit run app.py
 st.set_option("deprecation.showfileUploaderEncoding", False)
 
-st.title("Language Detection from Document Image Demo (AIPI540 CV Module)")
+st.title("sentiment prediction demo")
 st.write("")
 
-text = st.text_input("please input text")
+text = st.text_input("please input text",value = None)
 
 if text is not None:
 
