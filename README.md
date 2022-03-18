@@ -23,6 +23,8 @@ import getpass
 ```
 - install all requirement package
 `!make install`
+- go to the scripts directory
+`cd scripts`
 - train the model and save the model under models
 `!python main.py`
 - if you work on local machine, jump to the final step; if you work on colab, you need to sign up a pyngrok account to get the authtoken and replace the token below by yours
