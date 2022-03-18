@@ -21,3 +21,14 @@ nltk
 pyngrok
 transformers
 SentencePiece
+os
+math
+time
+urllib.request
+zipfile
+torch.utils.tensorboard
+tensorflow
+tqdm
+torch.utils.data
+keras.preprocessing.sequence
+
