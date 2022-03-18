@@ -1,6 +1,6 @@
 import streamlit as st
 from model import TextClassificationModel
-from clf import predict
+from clf1 import predict
 
 # streamlit run app.py
 st.set_option("deprecation.showfileUploaderEncoding", False)
