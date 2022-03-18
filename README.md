@@ -7,7 +7,7 @@
 ### Goal
 - find data that can be uniformly labeled, while varying in content type and size and build a model that can take large and small test strings and produce sentiment percentage of the string being either negative, neutral, or positive. 
 ## Get started
-- clone the repo to your colab notebook 
+- clone the repo to your colab notebook or local machine 
 [demo notebook sample](https://colab.research.google.com/drive/1QidqeviCLWYfWmC9bNoexkHr6sdexzG9#scrollTo=acRL0cxcaiTs)
 - since we have large files in repo, run the following code before cloning
 ```
@@ -25,6 +25,7 @@ import getpass
 `!make install`
 - train the model and save the model under models
 `!python main.py`
+- if you work on local machine, jump to the final step
 - run the demo to check the result(load pretrained1 under models, which is a pretrained XLNET with 80% accuracy)
 ```
 !wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
