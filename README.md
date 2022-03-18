@@ -25,7 +25,7 @@ import getpass
 `!make install`
 - train the model and save the model under models
 `!python main.py`
-- if you work on local machine, jump to the final step
+- if you work on local machine, jump to the final step; if you work on colab, you need to sign up a pyngrok account to get the authtoken and replace the token below by yours
 - run the demo to check the result(load pretrained1 under models, which is a pretrained XLNET with 80% accuracy)
 ```
 !wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
