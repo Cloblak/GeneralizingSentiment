@@ -29,6 +29,16 @@ zipfile
 torch.utils.tensorboard
 tensorflow
 tqdm
-torch.utils.data
-keras.preprocessing.sequence
+torch
+keras
+torchtext
+
+
+
+
+
+
+
+
+
 
