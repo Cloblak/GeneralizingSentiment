@@ -53,7 +53,7 @@ df_class2 = data[data['sentiment'] == 2]
 
 
 # Count the number in each class
-count_class0 = (data['sentiment'] ==0 ).sum()
+count_class0 = (data['sentiment'] ==3 ).sum()
 count_class1 = (data['sentiment'] ==1 ).sum()
 count_class2 = (data['sentiment'] ==2 ).sum()
 
