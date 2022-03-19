@@ -1,7 +1,6 @@
 import pandas as pd
-import pyarrow as pa
 import os
-import json
+
 
 
 if __name__ == "__main__":
@@ -76,7 +75,7 @@ if __name__ == "__main__":
 
     # Combine all datasets
 
-    final_df = pd.concat([twitter_df, rot_df_final, huggyface_df_final])
+    final_df = pd.concat([twitter_df, amz_df_final, huggyface_df_final])
 
     final_df.to_parquet("data/data_prepipeline/full_raw_data.parquet.gzip", compression='gzip')
     

@@ -1,5 +1,4 @@
 import streamlit as st
-from model import TextClassificationModel
 from clf1 import predict
 
 # streamlit run app.py

@@ -1,28 +1,13 @@
 # import packages
-
 import os
 import pandas as pd
-import numpy as np
-from scipy.stats import randint
-import seaborn as sns # used for plot interactive graph.
-import matplotlib.pyplot as plt
-import seaborn as sns
-from io import StringIO
-from sklearn.feature_extraction.text import TfidfVectorizer
-from IPython.display import display
 from sklearn.model_selection import train_test_split
-from scipy.stats import loguniform
-from pandas import read_csv
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import RepeatedStratifiedKFold
 from sklearn.model_selection import RandomizedSearchCV
-from sklearn.feature_extraction.text import TfidfTransformer
 from sentence_transformers import SentenceTransformer
-
 import warnings
-warnings.filterwarnings('ignore')
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+warnings.filterwarnings('ignore')
 
 # change the dirctory to import local pacakges
 os.chdir("scripts")
@@ -67,7 +52,7 @@ if __name__ == "__main__":
     print('Random under-sampling:')
     print(undersample_df_cleaned.sentiment.value_counts())
 
-    undersample_df_cleaned.sentiment.value_counts().plot(kind='bar', title='Count (target)');
+    undersample_df_cleaned.sentiment.value_counts().plot(kind='bar', title='Count (target)')
 
     X = undersample_df_cleaned['text_cleaned'] # Collection of documents
     y = undersample_df_cleaned['sentiment_id'] # Target or the labels we want to predict (i.e., the 13 different complaints of products)
@@ -92,34 +77,10 @@ if __name__ == "__main__":
     X_test = X_test.values.tolist()
     X_test = [senttrans_model.encode(doc) for doc in X_test]
 
-#     tfidf = TfidfVectorizer(sublinear_tf=True, max_df=100, min_df = 5, max_features = 1000,
-#                             ngram_range=(1, 2), 
-#                             stop_words='english')
-
-#     X_train_vec = tfidf.fit_transform(X_train).toarray()
-#     X_test_vec = tfidf.fit_transform(X_test).toarray()
 
     logreg_model = LogisticRegression(solver='saga')
-    logreg_model.fit(X_train_vec, y_train)
+    logreg_model.fit(X_train, y_train)
     preds = logreg_model.predict(X_train)
     acc = sum(preds==y_train)/len(y_train)
     print('Accuracy on the training set is {:.3f}'.format(acc))
     
-#     # define evaluation
-#     cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1, )
-    
-#     # define search space
-#     space = dict()
-#     space['solver'] = ['newton-cg', 'lbfgs', 'liblinear']
-#     space['penalty'] = ['none', 'l2']
-#     space['C'] = loguniform(1e-5, 100)
-    
-#     # define search
-#     search = RandomizedSearchCV(model, space, n_iter=20, scoring='accuracy', n_jobs=-1, random_state=1, verbose=3) #, cv=cv)
-    
-#     # execute search
-#     result = search.fit(X_train_vec, y_train)
-    
-#     # summarize result
-#     print('Best Score: %s' % result.best_score_)
-#     print('Best Hyperparameters: %s' % result.best_params_)
