@@ -15,6 +15,7 @@ imutils
 scipy
 opencv-python
 torch
+torchtext
 torchsummary
 torchvision
 nltk
