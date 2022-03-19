@@ -53,16 +53,16 @@ df_class2 = data[data['sentiment'] == 2]
 
 
 # Count the number in each class
-count_class0 = (data['sentiment'] ==3 ).sum()
+count_class3 = (data['sentiment'] ==3 ).sum()
 count_class1 = (data['sentiment'] ==1 ).sum()
 count_class2 = (data['sentiment'] ==2 ).sum()
 
 
 # Resample class 0 so count is equal to class 1
-df_class2_under = df_class2.sample(n=count_class0)
-df_class1_under = df_class1.sample(n=count_class0)
+df_class2_under = df_class2.sample(n=count_class3)
+df_class1_under = df_class1.sample(n=count_class3)
 # Add the undersampled class 0 together with class 1
-df_undersampled = pd.concat([df_class2_under,df_class1_under,df_class0])
+df_undersampled = pd.concat([df_class2_under,df_class1_under,df_class3])
 
 
 df_undersampled.sentiment.value_counts()
