@@ -43,5 +43,5 @@ import getpass
 - run the demo(in a new cell)
 `!streamlit run app.py`
 ## Test result
-- use 70 thousands to train XLNET for 2 epochs
+- use 70 thousands reviews to train XLNET for 2 epochs
 ![21cafebb02ac33443b84c419809d295](https://user-images.githubusercontent.com/87921304/159173122-f3a40eec-d56e-44b2-8ad6-0b410513e998.png)
