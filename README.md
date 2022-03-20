@@ -42,3 +42,5 @@ import getpass
 ```
 - run the demo(in a new cell)
 `!streamlit run app.py`
+## Test result
+![21cafebb02ac33443b84c419809d295](https://user-images.githubusercontent.com/87921304/159173122-f3a40eec-d56e-44b2-8ad6-0b410513e998.png)
