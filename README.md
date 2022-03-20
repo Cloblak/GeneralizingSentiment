@@ -9,7 +9,7 @@
 ## Get started
 - clone the repo to your colab notebook or local machine 
 [demo notebook sample](https://colab.research.google.com/drive/1QidqeviCLWYfWmC9bNoexkHr6sdexzG9#scrollTo=acRL0cxcaiTs)
-- since we have large files in repo, run the following code before cloning
+- since we have large files in repo, install git-lfs before cloning
 ```
 import os
 
