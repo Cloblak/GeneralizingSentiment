@@ -1,24 +1,9 @@
-
-import os
-import numpy as np
-import pandas as pd
-import string
 import time
 import copy
-from sklearn.linear_model import LogisticRegression
-import urllib.request
-import zipfile
-
 import torch
-from torchtext.data.utils import get_tokenizer
-from torchtext.vocab import build_vocab_from_iterator
-from torch.utils.data import DataLoader,TensorDataset
-from torch.utils.data.dataset import random_split
-from torchtext.data.functional import to_map_style_dataset
 from torch import nn
 
-import warnings
-warnings.filterwarnings('ignore')
+
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
