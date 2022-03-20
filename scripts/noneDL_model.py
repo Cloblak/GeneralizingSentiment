@@ -1,11 +1,10 @@
 # import packages
+import warnings
 import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import RandomizedSearchCV
 from sentence_transformers import SentenceTransformer
-import warnings
 
 warnings.filterwarnings('ignore')
 
@@ -16,7 +15,7 @@ os.chdir("..")
 
 
 if __name__ == "__main__":
-    
+
     print("Modeling Data With None DL Approach: Logistic Regression...")
     
     # import data
@@ -55,19 +54,22 @@ if __name__ == "__main__":
     undersample_df_cleaned.sentiment.value_counts().plot(kind='bar', title='Count (target)')
 
     X = undersample_df_cleaned['text_cleaned'] # Collection of documents
-    y = undersample_df_cleaned['sentiment_id'] # Target or the labels we want to predict (i.e., the 13 different complaints of products)
+    # Target or the labels we want to predict (i.e., the 13 different complaints of products)
+    y = undersample_df_cleaned['sentiment_id'] 
     X_train, X_test, y_train, y_test = train_test_split(X, y, 
                                                         test_size=0.25,
                                                         random_state = 0)
     
     X = undersample_df_cleaned['text_cleaned'] # Collection of documents
-    y = undersample_df_cleaned['sentiment_id'] # Target or the labels we want to predict (i.e., the 13 different complaints of products)
+    # Target or the labels we want to predict (i.e., the 13 different complaints of products)
+    y = undersample_df_cleaned['sentiment_id']
     X_train, X_test, y_train, y_test = train_test_split(X, y, 
                                                         test_size=0.25,
                                                         random_state = 0)
     
+    
     # Load pre-trained model
-    senttrans_model = SentenceTransformer('all-MiniLM-L6-v2',device=device)
+    senttrans_model = SentenceTransformer('all-MiniLM-L6-v2')
 
     # Create embeddings for training set text
     X_train = X_train.values.tolist()
@@ -82,5 +84,5 @@ if __name__ == "__main__":
     logreg_model.fit(X_train, y_train)
     preds = logreg_model.predict(X_train)
     acc = sum(preds==y_train)/len(y_train)
-    print('Accuracy on the training set is {:.3f}'.format(acc))
+    print(f'Accuracy on the training set is {acc}')
     
