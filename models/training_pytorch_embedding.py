@@ -4,11 +4,7 @@ from google.colab import drive
 ROOT = "/content/drive"
 drive.mount(ROOT, force_remount=False)
 
-!ls
-
-
 %cd /content/drive/"My Drive"/AIPI540_NLP/data
-
 
 import os
 import numpy as np
@@ -30,19 +26,13 @@ from torch import nn
 from sklearn.model_selection import train_test_split
 from tqdm import tqdm
 
-
-
 import warnings
 warnings.filterwarnings('ignore')
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-
 data = pd.read_parquet("full_raw_data.parquet.gzip")
 print(data.count())
-
-data.head()
-
 
 data['sentiment'] = data['sentiment'].map({"neutral":1,"positive":2,"negative":3})
 
@@ -51,12 +41,10 @@ df_class3 = data[data['sentiment'] == 3]
 df_class1 = data[data['sentiment'] == 1]
 df_class2 = data[data['sentiment'] == 2]
 
-
 # Count the number in each class
 count_class3 = (data['sentiment'] ==3 ).sum()
 count_class1 = (data['sentiment'] ==1 ).sum()
 count_class2 = (data['sentiment'] ==2 ).sum()
-
 
 # Resample class 0 so count is equal to class 1
 df_class2_under = df_class2.sample(n=count_class3)
@@ -68,11 +56,8 @@ df_undersampled = pd.concat([df_class2_under,df_class1_under,df_class3])
 df_undersampled.sentiment.value_counts()
 data = df_undersampled
 
-
 # split dataset
 train_df ,test_df = train_test_split(data,test_size=0.2)
-
-
 
 # Put data in iterator form needed to create PyTorch Datasets from data
 train_iter = [(label,text) for label,text in zip(train_df['sentiment'].to_list(),train_df['text'].to_list())]
@@ -116,8 +101,6 @@ def collate_batch(batch, tokenizer, vocab):
     offsets = torch.tensor(offsets[:-1]).cumsum(dim=0)
     text_list = torch.cat(text_list)
     return label_list.to(device), text_list.to(device), offsets.to(device)
-
-
 
 batch_size = 64
 # Create training, validation and test set DataLoaders using custom collate_batch function
@@ -251,7 +234,6 @@ lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1 , gamma=0.8)
 
 # Train the model
 nn_model = train_model(nn_model, criterion, optimizer, train_dataloaders, lr_scheduler, device, num_epochs=10)
-
 
 def evaluate(dataloader, model):
     # Generate predictions and calculate accuracy
