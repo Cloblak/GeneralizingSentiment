@@ -247,7 +247,7 @@ with torch.no_grad():
 print('Test Accuracy of the model on vla data is: {} %'.format(100 * correct / total))
 
 # save model
-%cd /content/drive/"My Drive"/AIPI540_NLP
+
 
 
 torch.save(model.state_dict(),'/model_1percent.pt')
