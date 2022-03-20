@@ -1,11 +1,5 @@
 
 
-
-
-
-
-
-
 import math
 import os
 import numpy as np
@@ -42,8 +36,7 @@ from keras.preprocessing.sequence import pad_sequences
 
 import warnings
 warnings.filterwarnings('ignore')
-import matplotlib.pyplot as plt
-% matplotlib inline
+
 
 
 # set and check device
