@@ -1,17 +1,11 @@
-# mount to drive
-from os.path import join
-from google.colab import drive
 
-ROOT = "/content/drive"
-drive.mount(ROOT, force_remount=False)
+
+
 
 
 !ls
 
-# change directory
-%cd /content/drive/"My Drive"/AIPI540_NLP/data
 
-# import package
 import math
 import os
 import numpy as np
@@ -63,7 +57,7 @@ n_gpu = torch.cuda.device_count()
 torch.cuda.get_device_name(0)
 
 # ceck data, label and balance
-data = pd.read_parquet("full_raw_data.parquet.gzip")
+data = pd.read_parquet("../data/data_prepipeline/full_raw_data.parquet.gzip")
 print(data.count())
 
 
