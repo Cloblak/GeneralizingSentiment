@@ -16,7 +16,7 @@ def remove_punctuation(text):
 
 
 def tokenization(text):
-    tokens = re.split('W+',text)
+    tokens = re.split(' ',text)
     return tokens
 
 
@@ -39,7 +39,7 @@ def lemmatizer(text):
 # data should be the text column from the dataset
 def preprocessing(data):
     data= data.apply(lambda x:remove_punctuation(x))
-    data= data.apply(lambda x: " ".join(x).lower())
+    data= data.apply(lambda x: x.lower())
     data= data.apply(lambda x: tokenization(x))
     data= data.apply(lambda x:remove_stopwords(x))
     data= data.apply(lambda x:lemmatizer(x))
